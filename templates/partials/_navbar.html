@@ -29,7 +29,10 @@
                     <hr class="dropdown-divider" />
                 </li>
                 <li>
-                    <a class="dropdown-item" href="#">Sair</a>
+                    <form id="logout-form" action="{% url 'user:logout' %}" method="post" style="display: none;">
+                        {% csrf_token %}
+                    </form>
+                    <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sair</a>
                 </li>
             </ul>
         </li>

@@ -141,9 +141,15 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# User model
+# User and authentication settings
 
 AUTH_USER_MODEL = 'user.User'
+
+LOGIN_URL = 'user:login'
+
+LOGIN_REDIRECT_URL = 'core:home'
+
+# LOGOUT_REDIRECT_URL = 'user:login'
 
 # Messages settings
 

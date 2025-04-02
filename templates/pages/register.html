@@ -1,0 +1,13 @@
+{% extends 'base/base.html' %}
+
+{% block title %}SME Cabo Verde | Criar conta{% endblock title %}
+
+{% block content-auth %}
+<h2>Register</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Register</button>
+</form>
+<p>Já tem uma conta? <a href="{% url 'user:login' %}">Entrar</a></p>
+{% endblock content-auth %}

@@ -62,8 +62,8 @@
             </div>
         </div>
         <div class="sb-sidenav-footer">
-            <div class="small">Logado como:</div>
             {% if user.is_authenticated %}
+            <div class="small">Logado como:</div>
             {{ user.username }}
             {% else %}
             Usuário Anônimo
