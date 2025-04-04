@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}SME Cabo Verde | Entrar{% endblock title %}
+
+{% block css %}
+<style>
+    #div_id_password {
+        margin-bottom: 0 !important;
+    }
+</style>
+{% endblock css %}
+
+{% block content-auth %}
+<!-- Alert messages -->
+{% if messages %}
+{% include 'partials/_alert-message.html' %}
+{% endif %}
+
+<!-- Title -->
+<h1 class="h3 mb-3 fw-normal">{{ title }}</h1>
+
+<!-- Form -->
+<form action="" method="post" class="needs-validation" novalidate>
+    <!-- CSRF Token -->
+    {% csrf_token %}
+
+    {{ form|crispy }}
+
+    <p class="mt-2">Esqueceu a senha?
+        <a href="{% url 'user:password_reset' %}">Clique aqui</a>
+    </p>
+
+    <button type="submit" class="btn btn-primary w-100">Entrar</button>
+</form>
+
+<!-- Links -->
+<div class="mt-3 d-flex justify-content-center">
+    <p>Não tem uma conta?
+        <a href="{% url 'user:register' %}">Registre-se</a>
+    </p>
+</div>
+{% endblock content-auth %}

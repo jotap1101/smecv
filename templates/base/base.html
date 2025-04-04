@@ -21,7 +21,10 @@
     {% block css %}{% endblock css %}
 </head>
 <body class="{% if request.path != '/user/auth/login/' and request.path != '/user/auth/logout/' and request.path != '/user/auth/register/' %}sb-nav-fixed{% else %}bg-body-tertiary{% endif %}">
-    {% if request.path != '/user/auth/login/' and request.path != '/user/auth/logout/' and request.path != '/user/auth/register/' %}
+    <!-- Alert Icons -->
+    {% include 'partials/_alert-icons.html' %}
+
+    {% if request.path != '/user/auth/login/' and request.path != '/user/auth/logout/' and request.path != '/user/auth/register/' and request.path != '/user/auth/password_reset/' and request.path != '/user/auth/password_reset/done/' and request.path != '/user/auth/reset/<uidb64>/<token>/' and request.path != '/user/auth/reset/done/' %}
         <!-- Navbar -->
         {% include 'partials/_navbar.html' %}
 
@@ -31,9 +34,9 @@
 
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
-                        <!-- Content Page -->
-                        {% block content %}{% endblock content %}
+                    <div class="container-fluid p-4">
+                        <!-- Content default pages -->
+                        {% block content-default %}{% endblock content-default %}
                     </div>
                 </main>
                 
@@ -44,6 +47,7 @@
     {% else %}
         <div class="d-flex align-items-center justify-content-center vh-100 px-3">
             <div class="container custom-container">
+                <!-- Content auth pages -->
                 {% block content-auth %}{% endblock content-auth %}
             </div>
         </div>
@@ -59,7 +63,7 @@
     {% if request.path != '/user/auth/login/' and request.path != '/user/auth/logout/' and request.path != '/user/auth/register/' %}
         <script src="{% static 'js/global/script.js' %}"></script>
     {% else %}
-        <script src="{% static 'js/auth/script.js' %}"></script>
+        <!-- <script src="{% static 'js/auth/script.js' %}"></script> -->
     {% endif %}
 
     <!-- Block JS (Extra JS for specific pages) -->
