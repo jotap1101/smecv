@@ -11,27 +11,32 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from django.contrib.messages import constants as messages
-from dotenv import load_dotenv
+import environ
 from pathlib import Path
 import os
 
-# Load environment variables from .env file
-load_dotenv()
+# Initialise environment variables
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -124,16 +129,17 @@ USE_I18N = True
 
 USE_TZ = True
 
+USE_L10N = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = BASE_DIR / 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'staticfiles/',
+    BASE_DIR / 'static/',
 ]
 
 MEDIA_URL = 'media/'
@@ -151,27 +157,64 @@ AUTH_USER_MODEL = 'user.User'
 
 LOGIN_URL = 'user:login'
 
+LOGOUT_URL = 'user:logout'
+
 LOGIN_REDIRECT_URL = 'core:home'
+
+ADMINS = [tuple(a.strip().split(',')) for a in env('ADMINS').split(';') if a.strip()]
 
 # LOGOUT_REDIRECT_URL = 'user:login'
 
+# Logging settings
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+        },
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'logs/django.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['mail_admins', 'file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
+
+# Error handling settings
+
+# HANDLER400 = 'apps.core.views.custom_bad_request'
+
+# HANDLER403 = 'apps.core.views.custom_403_view'
+
+# HANDLER404 = 'apps.core.views.custom_404_view'
+
+# HANDLER500 = 'apps.core.views.custom_500_view'
+
 # Email settings
 
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
+EMAIL_BACKEND = env('EMAIL_BACKEND')
 
-EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_HOST = env('EMAIL_HOST')
 
-EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_PORT = env('EMAIL_PORT')
 
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
-EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS') == 'True'
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
 
-EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL') == 'True'
-
-DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
 # Messages settings
 

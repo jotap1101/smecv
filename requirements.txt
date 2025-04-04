@@ -2,6 +2,7 @@ asgiref==3.8.1
 crispy-bootstrap5==2025.4
 Django==5.1.7
 django-crispy-forms==2.3
+django-environ==0.12.0
 pillow==11.1.0
 python-dotenv==1.1.0
 PyYAML==6.0.2

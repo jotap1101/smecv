@@ -2,7 +2,7 @@
 
 {% block title %}SME Cabo Verde | Página Inicial{% endblock title %}
 
-{% block content-default %}
+{% block content %}
 {% if not user.is_authenticated %}
 <div class="alert alert-info alert-dismissible fade show mb-4 d-flex align-items-center" role="alert">
     <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Info: " width="16" height="16">
@@ -31,4 +31,4 @@
         </strong>
     </p>
 </div>
-{% endblock content-default %}
+{% endblock content %}

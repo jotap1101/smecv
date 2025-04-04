@@ -1,16 +1,10 @@
-{% extends 'base/base.html' %}
+{% extends 'base/base-auth.html' %}
 
 {% load crispy_forms_tags %}
 
 {% block title %}SME Cabo Verde | Criar conta{% endblock title %}
 
-{% block css %}
-<style>
-    
-</style>
-{% endblock css %}
-
-{% block content-auth %}
+{% block content %}
 <!-- Alert messages -->
 {% if messages %}
     {% include 'partials/_alert-message.html' %}
@@ -35,4 +29,4 @@
         <a href="{% url 'user:login' %}">Entre aqui</a>
     </p>
 </div>
-{% endblock content-auth %}
+{% endblock content %}

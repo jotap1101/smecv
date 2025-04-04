@@ -1,4 +1,4 @@
-{% extends 'base/base.html' %}
+{% extends 'base/base-auth.html' %}
 
 {% load crispy_forms_tags %}
 
@@ -12,7 +12,7 @@
 </style>
 {% endblock css %}
 
-{% block content-auth %}
+{% block content %}
 <!-- Alert messages -->
 {% if messages %}
 {% include 'partials/_alert-message.html' %}
@@ -41,4 +41,4 @@
         <a href="{% url 'user:register' %}">Registre-se</a>
     </p>
 </div>
-{% endblock content-auth %}
+{% endblock content %}
