@@ -24,7 +24,7 @@
     <!-- Alert Icons -->
     {% include 'partials/_alert-icons.html' %}
 
-    {% if request.path != '/user/auth/login/' and request.path != '/user/auth/logout/' and request.path != '/user/auth/register/' and request.path != '/user/auth/password_reset/' and request.path != '/user/auth/password_reset/done/' and request.path != '/user/auth/reset/<uidb64>/<token>/' and request.path != '/user/auth/reset/done/' %}
+    {% if request.path != '/user/auth/login/' and request.path != '/user/auth/logout/' and request.path != '/user/auth/register/' and request.path != '/user/auth/password_reset/' and request.path != '/user/auth/password_reset/done/' and '/user/auth/reset/' not in request.path and request.path != '/user/auth/reset/done/' %}
         <!-- Navbar -->
         {% include 'partials/_navbar.html' %}
 
