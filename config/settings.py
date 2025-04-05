@@ -161,7 +161,7 @@ LOGOUT_URL = 'user:logout'
 
 LOGIN_REDIRECT_URL = 'core:home'
 
-ADMINS = [tuple(a.strip().split(',')) for a in env('ADMINS').split(';') if a.strip()]
+ADMINS = [tuple(a.strip().split(":")) for a in os.getenv("ADMINS", "").split(",") if ":" in a]
 
 # LOGOUT_REDIRECT_URL = 'user:login'
 

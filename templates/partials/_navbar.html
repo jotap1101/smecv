@@ -15,11 +15,18 @@
     <!-- Navbar-->
     <ul class="navbar-nav ms-auto me-3 me-lg-4">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
                 <i class="fas fa-user fa-fw"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 {% if user.is_authenticated %}
+                {% if user.is_superuser or user.is_staff %}
+                <li>
+                    <a class="dropdown-item" href="{% url 'admin:index' %}">Área Administrativa</a>
+                </li>
+                {% endif %}
+
                 <li>
                     <a class="dropdown-item" href="#">Minha Conta</a>
                 </li>
@@ -33,14 +40,15 @@
                     <form id="logout-form" action="{% url 'user:logout' %}" method="post" style="display: none;">
                         {% csrf_token %}
                     </form>
-                    <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sair</a>
+                    <a class="dropdown-item" href="#"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sair</a>
                 </li>
                 {% else %}
                 <li>
                     <a class="dropdown-item" href="{% url 'user:login' %}">Entrar</a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="{% url 'user:register' %}">Registrar</a>
+                    <a class="dropdown-item" href="{% url 'user:register' %}">Criar Conta</a>
                 </li>
                 {% endif %}
             </ul>
