@@ -231,3 +231,13 @@ MESSAGE_TAGS = {
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+# OpenWeather API settings
+
+OPENWEATHER = {
+    'API_KEY': env('OPENWEATHER_API_KEY'),
+    'CITY': env('OPENWEATHER_CITY', default='Cabo Verde'),
+    'COUNTRY': env('OPENWEATHER_COUNTRY', default='BR'),
+}
+
+# Cache settings
