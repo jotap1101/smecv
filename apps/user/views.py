@@ -37,7 +37,7 @@ class RegisterView(CreateView):
 class PasswordResetView(auth_views.PasswordResetView):
     template_name = 'pages/user/password_reset.html'
     email_template_name = 'emails/password_reset_email.html'
-    # subject_template_name = 'pages/user/password_reset_subject.txt'
+    subject_template_name = 'emails/password_reset_subject.txt'
     success_url = reverse_lazy('user:password_reset_done')
     form_class = PasswordResetForm
     redirect_authenticated_user = True
