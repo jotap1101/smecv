@@ -10,7 +10,7 @@
 
 {% block content %}
 {% if not user.is_authenticated %}
-<div class="alert alert-info alert-dismissible fade show mb-4 d-flex align-items-center" role="alert">
+<div class="alert alert-info alert-dismissible fade show mb-4 d-flex align-items-center animate__animated animate__fadeInDown" role="alert">
     <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Info: " width="16" height="16">
         <use xlink:href="#info-fill" />
     </svg>
@@ -65,7 +65,7 @@
                         {{ weather.temperature }}°C<br>
                         {{ weather.description }}<br>
                     </p>
-                    <img src="https://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" alt="Ícone do clima">
+                    <img src="https://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" alt="Ícone do clima" width="75" height="75">
                 </div>
             </div>
         </div>

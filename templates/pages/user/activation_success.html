@@ -1,0 +1,11 @@
+{% extends 'base/base-auth.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}SME Cabo Verde | Conta ativada com sucesso{% endblock title %}
+
+{% block content %}
+<h2>Conta ativada com sucesso!</h2>
+<p>Você pode fazer login agora.</p>
+<a href="{% url 'user:login' %}" class="btn btn-primary w-100">Fazer login</a>
+{% endblock content %}

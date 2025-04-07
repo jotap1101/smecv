@@ -1,0 +1,12 @@
+{% autoescape off %}
+Olá {{ user.get_username }},
+
+Obrigado por se registrar! Para ativar sua conta, clique no link abaixo:
+
+{{ protocol }}://{{ domain }}{% url 'user:activate' uidb64=uidb64 token=token %}
+
+Se você não se registrou, ignore este e-mail.
+
+Atenciosamente,
+Equipe do Sistema
+{% endautoescape %}
