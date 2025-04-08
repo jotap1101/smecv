@@ -33,7 +33,7 @@
                 {% if user.is_authenticated %}
                 {% if user.is_superuser or user.is_staff %}
                 <li>
-                    <a class="dropdown-item" href="{% url 'admin:index' %}">Área Administrativa</a>
+                    <a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank" rel="noopener noreferrer">Área Administrativa</a>
                 </li>
                 {% endif %}
 

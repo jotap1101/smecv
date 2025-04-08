@@ -49,6 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Django Apps
+    'django.contrib.humanize',
+
     # Apps
     'apps.user.apps.UserConfig',
 

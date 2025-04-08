@@ -31,11 +31,6 @@ class LoginView(auth_views.LoginView):
 class LogoutView(auth_views.LogoutView, LoginRequiredMixin):
     template_name = 'pages/user/logout.html'
 
-    def dispatch(self, request, *args, **kwargs):
-        response = redirect_authenticated_user(request, 'core:home')
-
-        return response if response else super().dispatch(request, *args, **kwargs)
-
 class RegisterView(CreateView):
     template_name = 'pages/user/register.html'
     form_class = UserRegisterForm
