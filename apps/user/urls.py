@@ -13,6 +13,8 @@ urlpatterns = [
 
     path('auth/account/<uidb64>/<token>/activate/', ActivateAccountView.as_view(), name='activate'),
     path('auth/account/activate/done/', RegisterDoneView.as_view(), name='register_done'),
+    path('auth/account/profile/', AccountProfileView.as_view(), name='profile'),
+    path('auth/account/security/', AccountSecurityView.as_view(), name='settings'),
 
     path('auth/password_reset/', PasswordResetView.as_view(), name='password_reset'),
     path('auth/password_reset/done/', PasswordResetDoneView.as_view(), name='password_reset_done'),

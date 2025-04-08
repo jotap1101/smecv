@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import  get_user_model, views as auth_views
 from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.shortcuts import redirect, render
@@ -20,17 +21,17 @@ class LoginView(auth_views.LoginView):
     template_name = 'pages/user/login.html'
     redirect_authenticated_user = True
 
-class LogoutView(auth_views.LogoutView):
+class LogoutView(auth_views.LogoutView, LoginRequiredMixin):
     template_name = 'pages/user/logout.html'
     redirect_authenticated_user = True
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('user:login')
+    # def dispatch(self, request, *args, **kwargs):
+    #     if not request.user.is_authenticated:
+    #         return redirect('user:login')
         
-        return super().dispatch(request, *args, **kwargs)
+    #     return super().dispatch(request, *args, **kwargs)
 
-class RegisterView(CreateView):
+class RegisterView(CreateView, LoginRequiredMixin):
     template_name = 'pages/user/register.html'
     form_class = UserRegisterForm
     success_url = reverse_lazy('user:register_done')
@@ -115,3 +116,9 @@ class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
 class PasswordResetCompleteView(auth_views.PasswordResetCompleteView):
     template_name = 'pages/user/password_reset_complete.html'
     redirect_authenticated_user = True
+
+class AccountProfileView(LoginRequiredMixin, TemplateView):
+    template_name = 'pages/user/account_profile.html'
+
+class AccountSecurityView(LoginRequiredMixin, TemplateView):
+    template_name = 'pages/user/account_security.html'

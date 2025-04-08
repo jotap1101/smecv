@@ -11,3 +11,8 @@ class UserRegisterForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ('username', 'email', 'password1', 'password2')
+
+# class UserUpdateForm(UserCreationForm):
+#     class Meta(UserCreationForm.Meta):
+#         model = User
+#         fields = ('first_name', 'last_name', 'username', 'email', 'profile_picture')
