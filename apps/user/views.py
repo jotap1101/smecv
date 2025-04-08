@@ -1,4 +1,5 @@
-from django.contrib import messages
+from django.conf import settings
+# from django.contrib import messages
 from django.contrib.auth import  get_user_model, views as auth_views
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -17,30 +18,33 @@ from .tokens import account_activation_token
 # Create your views here.
 User = get_user_model()
 
+def redirect_authenticated_user(request, redirect_url=None):
+    if request.user.is_authenticated:
+        return redirect(redirect_url or settings.LOGIN_REDIRECT_URL)
+    
+    return None
+
 class LoginView(auth_views.LoginView):
     template_name = 'pages/user/login.html'
     redirect_authenticated_user = True
 
 class LogoutView(auth_views.LogoutView, LoginRequiredMixin):
     template_name = 'pages/user/logout.html'
-    redirect_authenticated_user = True
 
-    # def dispatch(self, request, *args, **kwargs):
-    #     if not request.user.is_authenticated:
-    #         return redirect('user:login')
-        
-    #     return super().dispatch(request, *args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        response = redirect_authenticated_user(request, 'core:home')
 
-class RegisterView(CreateView, LoginRequiredMixin):
+        return response if response else super().dispatch(request, *args, **kwargs)
+
+class RegisterView(CreateView):
     template_name = 'pages/user/register.html'
     form_class = UserRegisterForm
     success_url = reverse_lazy('user:register_done')
     
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect('core:home')
-        
-        return super().dispatch(request, *args, **kwargs)
+        response = redirect_authenticated_user(request, 'core:home')
+
+        return response if response else super().dispatch(request, *args, **kwargs)
     
     def form_valid(self, form):
         user = form.save(commit=False)
@@ -91,10 +95,9 @@ class RegisterDoneView(TemplateView):
     template_name = 'pages/user/register_done.html'
     
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect('core:home')
-        
-        return super().dispatch(request, *args, **kwargs)
+        response = redirect_authenticated_user(request, 'core:home')
+
+        return response if response else super().dispatch(request, *args, **kwargs)
     
 class PasswordResetView(auth_views.PasswordResetView):
     template_name = 'pages/user/password_reset.html'
@@ -102,20 +105,36 @@ class PasswordResetView(auth_views.PasswordResetView):
     subject_template_name = 'emails/password_reset_subject.txt'
     success_url = reverse_lazy('user:password_reset_done')
     form_class = PasswordResetForm
-    redirect_authenticated_user = True
+    
+    def dispatch(self, request, *args, **kwargs):
+        response = redirect_authenticated_user(request, 'core:home')
+
+        return response if response else super().dispatch(request, *args, **kwargs)
 
 class PasswordResetDoneView(auth_views.PasswordResetDoneView):
     template_name = 'pages/user/password_reset_done.html'
-    redirect_authenticated_user = True
+    
+    def dispatch(self, request, *args, **kwargs):
+        response = redirect_authenticated_user(request, 'core:home')
+
+        return response if response else super().dispatch(request, *args, **kwargs)
 
 class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
     template_name = 'pages/user/password_reset_confirm.html'
     success_url = reverse_lazy('user:password_reset_complete')
-    redirect_authenticated_user = True
+    
+    def dispatch(self, request, *args, **kwargs):
+        response = redirect_authenticated_user(request, 'core:home')
+
+        return response if response else super().dispatch(request, *args, **kwargs)
 
 class PasswordResetCompleteView(auth_views.PasswordResetCompleteView):
     template_name = 'pages/user/password_reset_complete.html'
-    redirect_authenticated_user = True
+
+    def dispatch(self, request, *args, **kwargs):
+        response = redirect_authenticated_user(request, 'core:home')
+
+        return response if response else super().dispatch(request, *args, **kwargs)
 
 class AccountProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/user/account_profile.html'
