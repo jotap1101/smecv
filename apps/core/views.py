@@ -1,7 +1,7 @@
 from datetime import datetime
 from django.conf import settings
-from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
+from django.core.cache import cache
 from django.shortcuts import render
 import pytz
 import requests
@@ -16,6 +16,7 @@ def get_weather():
 
     api_key = settings.OPENWEATHER['API_KEY']
     city = settings.OPENWEATHER['CITY']
+    state = settings.OPENWEATHER['STATE']
     country = settings.OPENWEATHER['COUNTRY']
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city},{country}&appid={api_key}&units=metric&lang=pt_br"
 
