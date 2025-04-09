@@ -240,6 +240,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 OPENWEATHER = {
     'API_KEY': env('OPENWEATHER_API_KEY'),
     'CITY': env('OPENWEATHER_CITY', default='Cabo Verde'),
+    'STATE': env('OPENWEATHER_STATE', default='MG'),
     'COUNTRY': env('OPENWEATHER_COUNTRY', default='BR'),
 }
 
