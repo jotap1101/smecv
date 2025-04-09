@@ -36,10 +36,10 @@
                     <h5 class="my-3">
                         {{ user.get_full_name|default:"Nome não informado" }}
                     </h5>
-                    <p class="text-muted mb-1">
+                    <p class="text-muted mb-0">
                         {{ user.email |default:"Email não informado" }}
                     </p>
-                    <p class="text-muted mb-4">
+                    <p class="text-muted mb-0">
                         Usuário desde: {{ user.date_joined|date:"d/m/Y" }}
                     </p>
                     <!-- <div class="d-flex justify-content-center mb-2">
