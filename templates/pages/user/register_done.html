@@ -7,4 +7,5 @@
 {% block content %}
 <h2>Conta cadastrada com sucesso!</h2>
 <p>Verifique seu email para ativar sua conta. Se você não recebeu o email, entre em contato com o suporte.</p>
+<a href="{% url 'user:login' %}" class="btn btn-primary w-100">Fazer login</a>
 {% endblock content %}
