@@ -9,80 +9,82 @@
 {% endblock css %}
 
 {% block content %}
-{% if not user.is_authenticated %}
-<div class="alert alert-info alert-dismissible fade show mb-4 d-flex align-items-center animate__animated animate__fadeInDown" role="alert">
-    <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Info: " width="16" height="16">
-        <use xlink:href="#info-fill" />
-    </svg>
-    <div>
-        Olá, visitante! Para acessar todas as funcionalidades do sistema,
-        <a href="{% url 'user:login' %}" class="alert-link">faça login</a> ou
-        <a href="{% url 'user:register' %}" class="alert-link">cadastre-se</a>.
-    </div>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-{% endif %}
-
-<div class="bg-body-tertiary p-5 rounded shadow-sm animate__animated animate__fadeInDown">
-    <h1 class="text-center">Olá, é bom te ver por aqui!</h1>
-    <p class="lead text-center">Esta é a página inicial do software de Currículos da sala mineira de Cabo Verde.</p>
-    <p class="lead text-center">
-        Seja Bem vindo(a)
-        <strong class="fw-bold">
-            {% if user.is_authenticated %}
-            {{ user.username }}
-            {% else %}
-            Usuário Anônimo
-            {% endif %}
-        </strong>
-    </p>
-</div>
-
-<div class="container">
-    <div class="row justify-content-center g-4 mt-0">
-        <!-- Card 1 -->
-        <div class="col-12 col-md-6 col-xl-4 d-flex">
-            <div class="card shadow rounded-3 flex-fill text-center animate__animated animate__fadeInUp">
-                <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height: 200px;">
-                    <h5 class="card-title">
-                        <i class="fas fa-clock"></i>
-                        Data e Hora Atual
-                    </h5>
-                    <p class="card-text fs-5 mb-0">{{ datetime }}</p>
-                </div>
-            </div>
+<div class="container pt-3">
+    {% if not user.is_authenticated %}
+    <div class="alert alert-info alert-dismissible fade show mb-4 d-flex align-items-center animate__animated animate__fadeInDown" role="alert">
+        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Info: " width="16" height="16">
+            <use xlink:href="#info-fill" />
+        </svg>
+        <div>
+            Olá, visitante! Para acessar todas as funcionalidades do sistema,
+            <a href="{% url 'user:login' %}" class="alert-link">faça login</a> ou
+            <a href="{% url 'user:register' %}" class="alert-link">cadastre-se</a>.
         </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
 
-        <!-- Card 2 -->
-        <div class="col-12 col-md-6 col-xl-4 d-flex">
-            <div class="card shadow rounded-3 flex-fill text-center animate__animated animate__fadeInUp">
-                <div class="card-body" style="height: 200px;">
-                    <h5 class="card-title mb-0">
-                        <i class="fas fa-sun"></i>
-                        Clima em {{ weather.city }}
-                    </h5>
-                    <p class="card-text fs-5 mb-0">
-                        {{ weather.temperature }}°C<br>
-                        {{ weather.description }}<br>
-                    </p>
-                    <div class="card-text bg-primary mt-2 rounded-3">
-                        <img src="https://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" alt="Ícone do clima" width="75" height="75">
+    <div class="bg-body-tertiary p-5 rounded shadow-sm animate__animated animate__fadeInDown">
+        <h1 class="text-center">Olá, é bom te ver por aqui!</h1>
+        <p class="lead text-center">Esta é a página inicial do software de Currículos da sala mineira de Cabo Verde.</p>
+        <p class="lead text-center">
+            Seja Bem vindo(a)
+            <strong class="fw-bold">
+                {% if user.is_authenticated %}
+                {{ user.username }}
+                {% else %}
+                Usuário Anônimo
+                {% endif %}
+            </strong>
+        </p>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center g-4 mt-0">
+            <!-- Card 1 -->
+            <div class="col-12 col-md-6 col-xl-4 d-flex">
+                <div class="card shadow rounded-3 flex-fill text-center animate__animated animate__fadeInUp">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height: 200px;">
+                        <h5 class="card-title">
+                            <i class="fas fa-clock"></i>
+                            Data e Hora Atual
+                        </h5>
+                        <p class="card-text fs-5 mb-0">{{ datetime }}</p>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Card 3 -->
-        <div class="col-12 col-md-6 col-xl-4 d-flex justify-content-center">
-            <div class="card shadow rounded-3 flex-fill text-center animate__animated animate__fadeInUp">
-                <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height: 200px;">
-                    <h5 class="card-title">
-                        <i class="fas fa-quote-left"></i>
-                        Frase do Dia
-                    </h5>
-                    <blockquote class="blockquote">
-                        <p class="mb-0 fst-italic">"{{ quote }}"</p>
-                    </blockquote>
+            <!-- Card 2 -->
+            <div class="col-12 col-md-6 col-xl-4 d-flex">
+                <div class="card shadow rounded-3 flex-fill text-center animate__animated animate__fadeInUp">
+                    <div class="card-body" style="height: 200px;">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-sun"></i>
+                            Clima em {{ weather.city }}
+                        </h5>
+                        <p class="card-text fs-5 mb-0">
+                            {{ weather.temperature }}°C<br>
+                            {{ weather.description }}<br>
+                        </p>
+                        <div class="card-text bg-primary mt-2 rounded-3">
+                            <img src="https://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" alt="Ícone do clima" width="75" height="75">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-12 col-md-6 col-xl-4 d-flex justify-content-center">
+                <div class="card shadow rounded-3 flex-fill text-center animate__animated animate__fadeInUp">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height: 200px;">
+                        <h5 class="card-title">
+                            <i class="fas fa-quote-left"></i>
+                            Frase do Dia
+                        </h5>
+                        <blockquote class="blockquote">
+                            <p class="mb-0 fst-italic">"{{ quote }}"</p>
+                        </blockquote>
+                    </div>
                 </div>
             </div>
         </div>

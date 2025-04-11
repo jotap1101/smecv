@@ -67,7 +67,6 @@ class RegisterView(CreateView):
         email = EmailMessage(mail_subject, message, to=[user.email])
 
         email.send()
-
     
 class ActivateAccountView(View):
     def get(self, request, uidb64, token):
@@ -133,6 +132,10 @@ class PasswordResetCompleteView(auth_views.PasswordResetCompleteView):
 
 class AccountProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/user/account_profile.html'
+
+class PasswordChangeView(LoginRequiredMixin, auth_views.PasswordChangeView):
+    template_name = 'pages/user/password_change.html'
+    success_url = reverse_lazy('user:profile')
 
 class AccountSecurityView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/user/account_security.html'

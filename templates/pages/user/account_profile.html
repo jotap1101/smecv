@@ -42,12 +42,10 @@
                     <p class="text-muted mb-0">
                         Usuário desde: {{ user.date_joined|date:"d/m/Y" }}
                     </p>
-                    <!-- <div class="d-flex justify-content-center mb-2">
-                        <button type="button" data-mdb-button-init data-mdb-ripple-init
-                            class="btn btn-primary">Follow</button>
-                        <button type="button" data-mdb-button-init data-mdb-ripple-init
-                            class="btn btn-outline-primary ms-1">Message</button>
-                    </div> -->
+                    <div class="d-flex flex-column flex-sm-row justify-content-center m-3 gap-2">
+                        <a href="#" class="btn btn-primary">Editar dados</a>
+                        <a href="{% url 'user:password_change' %}" class="btn btn-outline-primary">Alterar senha</a>
+                    </div>
                 </div>
             </div>
             <!-- <div class="card mb-4 mb-lg-0">
@@ -63,37 +61,37 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <strong>Nome completo</strong>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-8">
                             <p class="text-muted mb-0">{{ user.get_full_name|default:"Nome não informado" }}</p>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <strong>Usuário</strong>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-8">
                             <p class="text-muted mb-0">{{ user.username|default:"Usuário não informado" }}</p>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <strong>E-mail</strong>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-8">
                             <p class="text-muted mb-0">{{ user.email|default:"Email não informado" }}</p>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <strong>Status</strong>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-8">
                             <p class="text-muted mb-0">
                                 {% if user.is_active %}
                                 <span class="badge bg-success">Ativo</span>
@@ -105,10 +103,10 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <strong>Membro da equipe</strong>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-8">
                             <p class="text-muted mb-0">
                                 {% if user.is_staff %}
                                 <span class="badge bg-success">Sim</span>
@@ -120,10 +118,10 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <strong>Superusuário</strong>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-8">
                             <p class="text-muted mb-0">
                                 {% if user.is_superuser %}
                                 <span class="badge bg-success">Sim</span>
@@ -135,10 +133,10 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <strong>Atualizado em</strong>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-8">
                             <p class="text-muted mb-0">{{ user.updated_at|date:"d/m/Y à\s H:i" }} ({{ user.updated_at|naturaltime }})
                         </div>
                     </div>
