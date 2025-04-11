@@ -11,8 +11,8 @@ from django.urls import reverse_lazy
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.views import View
-from django.views.generic import CreateView, TemplateView
-from .forms import UserRegisterForm
+from django.views.generic import CreateView, UpdateView, TemplateView
+from .forms import UserRegisterForm, UserUpdateForm
 from .tokens import account_activation_token
 
 # Create your views here.
@@ -132,6 +132,21 @@ class PasswordResetCompleteView(auth_views.PasswordResetCompleteView):
 
 class AccountProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/user/account_profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = UserUpdateForm(instance=self.request.user)
+
+        return context
+
+class AccountUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'pages/user/account_profile.html'
+    model = User
+    form_class = UserUpdateForm
+    success_url = reverse_lazy('user:profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user
 
 class PasswordChangeView(LoginRequiredMixin, auth_views.PasswordChangeView):
     template_name = 'pages/user/password_change.html'

@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load humanize %}
+{% load crispy_forms_tags %}
 
 {% block title %}SME Cabo Verde | Minha Conta{% endblock title %}
 
@@ -27,8 +28,8 @@
                 </div> -->
                 <div class="card-body text-center">
                     {% if user.profile_picture %}
-                    <img src="{{ user.profile_picture.url }}" alt="Foto de perfil"
-                        class="rounded-circle img-fluid" style="width: 150px;">
+                    <img src="{{ user.profile_picture.url }}" alt="Foto de perfil" class="rounded-circle img-fluid"
+                        style="width: 150px;">
                     {% else %}
                     <img src="{% static 'img/default-profile-image.jpg' %}" alt="Foto de perfil padrão"
                         class="rounded-circle img-fluid" style="width: 150px;">
@@ -43,7 +44,8 @@
                         Usuário desde: {{ user.date_joined|date:"d/m/Y" }}
                     </p>
                     <div class="d-flex flex-column flex-sm-row justify-content-center m-3 gap-2">
-                        <a href="#" class="btn btn-primary">Editar dados</a>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">Alterar dados</button>
                         <a href="{% url 'user:password_change' %}" class="btn btn-outline-primary">Alterar senha</a>
                     </div>
                 </div>
@@ -145,9 +147,10 @@
                         <div class="col-sm-4">
                             <strong>Atualizado em</strong>
                         </div>
-                        <div class="col-sm-8">
-                            <p class="text-muted mb-0">{{ user.updated_at|date:"d/m/Y à\s H:i" }} ({{ user.updated_at|naturaltime }})
-                        </div>
+                        <p class="text-muted mb-0">
+                            {{ user.updated_at|date:"d/m/Y à\s H:i" }}
+                            <span class="d-block d-sm-inline">({{ user.updated_at|naturaltime }})</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -168,6 +171,58 @@
                 </div>
             </div> -->
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{% url 'user:update' %}" method="post" enctype="multipart/form-data"
+                        class="needs-validation" id="modalForm" novalidate>
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Atualizar dados da conta</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {% csrf_token %}
+
+                            {{ form|crispy }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock content %}
+
+{% block js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const modalElement = document.getElementById('staticBackdrop');
+        const formElement = modalElement.querySelector('form');
+
+        {% if form.errors %}
+        const modal = new bootstrap.Modal(modalElement, {
+            backdrop: 'static',
+            keyboard: false
+        });
+
+        modal.show();
+
+        modalElement.addEventListener('hidden.bs.modal', function () {
+            // Remove mensagens e classes de erro
+            modalElement.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
+            modalElement.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+
+            // Reseta os valores dos campos para o estado inicial
+            formElement.reset();
+        });
+        {% endif %}
+    });
+</script>
+{% endblock js %}
