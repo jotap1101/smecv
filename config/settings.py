@@ -173,10 +173,17 @@ ADMINS = [tuple(a.strip().split(":")) for a in os.getenv("ADMINS", "").split(","
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '[{levelname}] {asctime} {name} {message}',
+            'style': '{',
+        },
+    },
     'handlers': {
         'console': {
-            'level': 'INFO',
+            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
         },
         'mail_admins': {
             'level': 'ERROR',
@@ -193,6 +200,11 @@ LOGGING = {
             'handlers': ['console', 'mail_admins', 'file'],
             'level': 'ERROR',
             'propagate': True,
+        },
+        'django.server': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
         },
     },
 }
